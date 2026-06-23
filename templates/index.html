@@ -4,24 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News Bias Detector</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='static.css') }}">
 </head>
 <body>
     <div class="container">
         <h1>Political Bias Detector</h1>
-        <p class="subtitle"> </p>
+        <p class="subtitle">Enter url of the article to detect possible political bias </p>
+
+        <form method="POST" action="/">
+            <input type="url" name="article_url" placeholder="https//:www.example.com">
+            <button type="submit">Analyze</button>
+        </form>
     </div>
 
-    {% if result %}
+    {% if prediction %}
         <div class="result-box success">
             <h2>Prediction: <span>{{prediction}}</span></h2>
         </div>
     {% endif %}
 
-    {% if error %}
+    {% if error_msg %}
         <div class="result-box error">
-            <h2>Error: <span>{{error}}</span></h2>
+            <h2>Error: <span>{{error_msg}}</span></h2>
         </div>
+    {% endif %}
 
 </body>
 </html>
