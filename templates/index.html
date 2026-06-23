@@ -12,5 +12,16 @@
         <p class="subtitle"> </p>
     </div>
 
+    {% if result %}
+        <div class="result-box success">
+            <h2>Prediction: <span>{{prediction}}</span></h2>
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="result-box error">
+            <h2>Error: <span>{{error}}</span></h2>
+        </div>
+
 </body>
 </html>
