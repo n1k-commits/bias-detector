@@ -46,6 +46,7 @@ class Scraper:
         source = Article(response.url)
         source.set_html(response.text)
         source.parse()
+        return source.text
 
 class BiasDetector:
     def __init__(self):
@@ -81,20 +82,3 @@ df = pd.DataFrame(final_training_set)
 X_raw = df['Text']
 y = df['Ideology']
 
-
-# BiasModel = BiasDetector()
-# # article = 'https://timesofindia.indiatimes.com/city/delhi/18-charged-in-uttam-nagar-holi-murder-2-minors-also-involved/articleshow/130841569.cms'
-#
-# Websource = Scraper(article)
-#
-# raw_article = Websource.scrape()
-#
-# cleaner = ArticleProcessor()
-#
-# BiasModel.train(X_raw,y)
-#
-# processed_article = cleaner.clean_text(raw_article)
-#
-# predictions = BiasModel.detect(processed_article)
-#
-# print("Political leaning: "+predictions[0])

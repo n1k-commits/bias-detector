@@ -8,26 +8,27 @@
 </head>
 <body>
     <div class="container">
+
         <h1>Political Bias Detector</h1>
         <p class="subtitle">Enter url of the article to detect possible political bias </p>
+
+        {% if prediction %}
+        <div class="result-box success">
+            <h2>Prediction: <span>{{prediction}}</span></h2>
+        </div>
+        {% endif %}
+
+        {% if error_msg %}
+        <div class="result-box error">
+            <h2>Error: <span>{{error_msg}}</span></h2>
+        </div>
+        {% endif %}
 
         <form method="POST" action="/">
             <input type="url" name="article_url" placeholder="https//:www.example.com">
             <button type="submit">Analyze</button>
         </form>
     </div>
-
-    {% if prediction %}
-        <div class="result-box success">
-            <h2>Prediction: <span>{{prediction}}</span></h2>
-        </div>
-    {% endif %}
-
-    {% if error_msg %}
-        <div class="result-box error">
-            <h2>Error: <span>{{error_msg}}</span></h2>
-        </div>
-    {% endif %}
 
 </body>
 </html>
