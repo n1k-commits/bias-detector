@@ -96,3 +96,22 @@ button:hover {
     border: 1px solid #ffcdd2;
     color: #c62828;
 }
+
+/* The physics for shrinking and lifting the text */
+@keyframes shrinkAndLift {
+    0% {
+        font-size: 34px;
+        transform: translateY(0);
+    }
+    100% {
+        font-size: 22px;
+        transform: translateY(-10px);
+        margin-bottom: 15px;
+    }
+}
+
+/* The trigger class we will apply using Flask */
+.title-minimized {
+    /* We use the same bouncy cubic-bezier so it matches your result box! */
+    animation: shrinkAndLift 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}

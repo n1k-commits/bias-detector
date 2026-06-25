@@ -9,7 +9,7 @@
 <body>
     <div class="container">
 
-        <h1>Political Bias Detector</h1>
+        <h1 class="{% if prediction%} title-minimized {% endif %}">Political Bias Detector</h1>
         <p class="subtitle">Enter url of the article to detect possible political bias </p>
 
         {% if prediction %}
