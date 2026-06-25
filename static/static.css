@@ -1,101 +1,169 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 body {
-    background-color: #f4f7f6;
+    background: linear-gradient(-45deg, #000000, #130f40, #000000, #093028);
+    background-size: 300% 300%;
+    animation: gradientBG 15s ease infinite;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    color: #333;
+    color: #fff;
+}
+
+@keyframes gradientBG{
+    0%{background-position: 0% 50%;}
+    50%{background-position: 100% 50%;}
+    100%{background-position: 0% 50%;}
 }
 
 .container {
-    background: white;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    background: rgba(255, 255, 255, 0.03);
+    background-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 50px 40px;
+    border-radius: 20px;
+    box-shadow: 0 30px 50px rgba(0,0,0,0.3);
     width: 100%;
-    max-width: 600px;
+    max-width: 650px;
     text-align: center;
+    transform: translateY(0);
+    transition: transform 0.04s ease, box-shadow 0.4s ease;
+}
+
+.container:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 40px 60px rgba(0,0,0,0.4);
 }
 
 h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #1a1a1a;
+    font-size: 34px;
+    font-weigth: 800;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+    background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 30px;
+    color: #b0c4de;
+    font-size: 15px;
+    margin-bottom: 40px;
+    font-weight: 400;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
 input[type="url"] {
     width: 100%;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 14px;
+    padding: 18px 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    font-size: 16px;
     outline: none;
-    transition: border 0.3s;
+    transition: all 0.3s ease;
 }
 
-input[type="url"]:focus {
-    border-color: #007bff;
+input[type="url"]::placeholder {
+    color: rgba(255,255,255,0.4);
+}
+
+input[type="url"]:focus{
+    border-color: #00f2fe;
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
+    background: rgba(255,255,255,0.1);
 }
 
 button {
-    background-color: #007bff;
-    color: white;
+    background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+    color: #0a192f;
     border: none;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
+    padding: 18px;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 800;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 button:hover {
-    background-color: #0056b3;
+    transform: scale(1.03);
+    box-shadow: 0 10px 25px rgba(0, 242, 254, 0.4);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+@keyframes popIn{
+    0% { opacity: 0; transform: translateY(20px) scale(0.5);}
+    100% { opacity: 1; transform: translateY(0) scale(1);}
 }
 
 .result-box {
-    margin-top: 30px;
-    padding: 20px;
-    border-radius: 8px;
+    margin-top: 35px;
+    padding: 25px;
+    border-radius: 15px;
+    animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 .success {
-    background-color: #e8f5e9;
-    border: 1px solid #c8e6c9;
-    color: #2e7d32;
+    background: rgba(46, 204, 113, 0.1);
+    border: 1px solid rgba(46, 204, 113, 0.3);
+    box-shadow: 0 10px 30px rgba(46, 204, 113, 0.15);
+}
+
+.success h2{
+    color: #a8e6cf;
+    font-weight: 600;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .success span {
-    font-weight: 700;
-    color: #1b5e20;
+    font-weight: 800;
+    color: #2ecc71;
+    font-size: 28px;
+    display: block;
+    margin-top: 10px;
+    letter-spacing: 2px;
 }
 
 .error {
-    background-color: #ffebee;
-    border: 1px solid #ffcdd2;
-    color: #c62828;
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.3);
+    box-shadow: 0 10px 30px rgba(231, 76, 60, 0.15);
 }
+
+.error h2 {
+    color: #ffbba1;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.error span {
+    color: #ff6b6b;
+    font-weight: 600;
+}
+
+
 
 /* The physics for shrinking and lifting the text */
 @keyframes shrinkAndLift {

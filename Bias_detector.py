@@ -3,29 +3,18 @@ import requests
 from newspaper import Article
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.feature_extraction.text import CountVectorizer
+import joblib
+
 
 
 class ArticleProcessor:
     def __init__(self):
 
-        # below are the words that are usually considered useless for determining bias because they are considered stopwords in natural language processing
-
-        self.stopwords = {'a','as','am','are','and','at','also','all','after','against','any',"aren't",'any','be','because','before','being','but','buy','before','can','could',"can't",'cannot','did','do','does',"didn't",'doing',
-                          'during','down','each','for','far','few','further','farther','has','had','have','he','him','her','how','is','it','if','in','i',',I','into','its','me','more','most','much','my','no','nor','not','of','or',
-                          'on','off','only','our','other','over','out','ok','so','some','such','to','this','that','these','those','they','them','then','than','too','through','us','under','until','up','when','where','was','were',
-                          'what','we','why','who','whom','would','you','yours','your'}
+        pass
 
     def clean_text(self, unmodified_text):
         words = str(unmodified_text).lower().split()
-
-        #the below for loop selectively takes all the words from the article that are not stop words and returns it as a full string.
-
-        clean_words = []
-        for word in words:
-            if word not in self.stopwords:
-                clean_words.append(word)
-
-        return ' '.join(clean_words)
+        return ' '.join(words)
 
 class Scraper:
     def __init__(self,url):
@@ -50,14 +39,34 @@ class Scraper:
 
 class BiasDetector:
     def __init__(self):
-        self.vectorizer = CountVectorizer(ngram_range=(1, 3))
+
         self.model = MultinomialNB()
         self.is_trained = False
 
-    def train(self, raw_data, labels):
+    def train(self, raw_data, labels, fixed_vocabulary):
+        self.vectorizer = CountVectorizer(ngram_range=(1, 3), stop_words='english', vocabulary=fixed_vocabulary)
         X_final = self.vectorizer.fit_transform(raw_data)
         self.model.fit(X_final, labels)
         self.is_trained = True
+        self.save()
+
+    def save(self):
+        if self.is_trained:
+            joblib.dump(self.vectorizer,'bias_vectorizer.joblib')
+            joblib.dump(self.model,'bias_model.joblib')
+            print("The model has been trained and successfully saved")
+        else:
+            print("Cannot save a model that has not been trained")
+
+    def load(self):
+        try:
+            self.vectorizer = joblib.load('bias_vectorizer.joblib')
+            self.model = joblib.load('bias_model.joblib')
+            self.is_trained = True
+            print("The model has been loaded and is up and running.")
+        except FileNotFoundError:
+            print("Critical files of the model are missing! Train the model before proceeding.")
+
 
     def detect(self,clean_article):
         vectorized_article = self.vectorizer.transform([clean_article])
